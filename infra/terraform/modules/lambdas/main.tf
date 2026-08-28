@@ -56,10 +56,10 @@ locals {
 
   stage_lambdas = {
     orchestrator = "src.lambdas.orchestrator_handler.handler"
-    sales        = "src.lambdas.sales_handler.handler"
-    support      = "src.lambdas.support_handler.handler"
-    returns      = "src.lambdas.returns_handler.handler"
-    search       = "src.lambdas.search_handler.handler"
+    filings      = "src.lambdas.filings_handler.handler"
+    quant        = "src.lambdas.quant_handler.handler"
+    risk         = "src.lambdas.risk_handler.handler"
+    memo         = "src.lambdas.memo_handler.handler"
     feedback     = "src.lambdas.feedback_handler.handler"
   }
 }
