@@ -2,13 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FinSight Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinSight — Equity Research</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header><h1>📈 FinSight</h1></header>
-  <main>
-    <p>Dashboard for FinSight — see <a href="docs/architecture/00-overview.md">architecture docs</a>.</p>
+  <header class="app-header">
+    <div class="header-inner">
+      <h1><span class="mark">F</span> FinSight <span class="sub">Equity Research</span></h1>
+      <div class="header-meta">
+        <span id="env-badge" class="badge">dev</span>
+        <span id="latency" class="muted"></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="banner" role="note">
+    Analyst-support material generated from the supplied sources. Not investment
+    advice and not a recommendation to buy or sell.
+  </div>
+
+  <main class="layout">
+    <nav class="sidebar">
+      <h2>Agents</h2>
+      <button class="agent-btn active" data-agent="filings">Filings<span>extract reported facts</span></button>
+      <button class="agent-btn" data-agent="quant">Quant<span>ratios with workings</span></button>
+      <button class="agent-btn" data-agent="risk">Risk<span>evidenced by filing text</span></button>
+      <button class="agent-btn" data-agent="memo">Memo<span>assemble the write-up</span></button>
+      <button class="agent-btn" data-agent="research">Auto-route<span>orchestrator picks</span></button>
+
+      <h2>Examples</h2>
+      <div id="examples"></div>
+    </nav>
+
+    <section class="workspace">
+      <form id="agent-form" autocomplete="off">
+        <div id="fields"></div>
+        <button type="submit" id="run-btn" class="primary">Run</button>
+      </form>
+
+      <div id="output" class="output">
+        <div class="empty">
+          <h3>Select an agent and supply a source</h3>
+          <p>Every figure is traced to the supplied text. A ratio whose inputs
+             are missing is reported as not computable rather than estimated.</p>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Written by Terraform with the deployed API URL. Must load before app.js. -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
