@@ -9,7 +9,7 @@ variable "name_prefix" { type = string }
 variable "state_machine_arn" { type = string }
 variable "lambda_arns" { type = map(string) }
 variable "common_tags" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }
 
@@ -26,17 +26,17 @@ locals {
           "Payload.$"    = "$"
         }
 
-          OutputPath = "$.Payload"
+        OutputPath = "$.Payload"
         Retry = [{
-          ErrorEquals    = ["States.TaskFailed"]
+          ErrorEquals     = ["States.TaskFailed"]
           IntervalSeconds = 1
-          MaxAttempts    = 3
-          BackoffRate    = 2.0
+          MaxAttempts     = 3
+          BackoffRate     = 2.0
         }]
         Catch = [{
           ErrorEquals = ["States.ALL"]
           ResultPath  = "$.error"
-          Next       = "Failed"
+          Next        = "Failed"
         }]
         Next = "Dispatch"
       }
@@ -44,9 +44,9 @@ locals {
         Type = "Choice"
         Choices = [
           { Variable = "$.intent", StringEquals = "filings", Next = "FilingsAgent" },
-          { Variable = "$.intent", StringEquals = "quant",   Next = "QuantAgent" },
-          { Variable = "$.intent", StringEquals = "risk",    Next = "RiskAgent" },
-          { Variable = "$.intent", StringEquals = "memo",    Next = "MemoAgent" }
+          { Variable = "$.intent", StringEquals = "quant", Next = "QuantAgent" },
+          { Variable = "$.intent", StringEquals = "risk", Next = "RiskAgent" },
+          { Variable = "$.intent", StringEquals = "memo", Next = "MemoAgent" }
         ]
         Default = "Failed"
       }
@@ -58,17 +58,17 @@ locals {
           "Payload.$"    = "$"
         }
 
-          OutputPath = "$.Payload"
+        OutputPath = "$.Payload"
         Retry = [{
-          ErrorEquals    = ["States.TaskFailed"]
+          ErrorEquals     = ["States.TaskFailed"]
           IntervalSeconds = 1
-          MaxAttempts    = 3
-          BackoffRate    = 2.0
+          MaxAttempts     = 3
+          BackoffRate     = 2.0
         }]
         Catch = [{
           ErrorEquals = ["States.ALL"]
           ResultPath  = "$.error"
-          Next       = "Failed"
+          Next        = "Failed"
         }]
         End = true
       }
@@ -80,17 +80,17 @@ locals {
           "Payload.$"    = "$"
         }
 
-          OutputPath = "$.Payload"
+        OutputPath = "$.Payload"
         Retry = [{
-          ErrorEquals    = ["States.TaskFailed"]
+          ErrorEquals     = ["States.TaskFailed"]
           IntervalSeconds = 1
-          MaxAttempts    = 3
-          BackoffRate    = 2.0
+          MaxAttempts     = 3
+          BackoffRate     = 2.0
         }]
         Catch = [{
           ErrorEquals = ["States.ALL"]
           ResultPath  = "$.error"
-          Next       = "Failed"
+          Next        = "Failed"
         }]
         End = true
       }
@@ -102,17 +102,17 @@ locals {
           "Payload.$"    = "$"
         }
 
-          OutputPath = "$.Payload"
+        OutputPath = "$.Payload"
         Retry = [{
-          ErrorEquals    = ["States.TaskFailed"]
+          ErrorEquals     = ["States.TaskFailed"]
           IntervalSeconds = 1
-          MaxAttempts    = 3
-          BackoffRate    = 2.0
+          MaxAttempts     = 3
+          BackoffRate     = 2.0
         }]
         Catch = [{
           ErrorEquals = ["States.ALL"]
           ResultPath  = "$.error"
-          Next       = "Failed"
+          Next        = "Failed"
         }]
         End = true
       }
