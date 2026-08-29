@@ -6,10 +6,13 @@ unstructured request returns a result in a single round trip.
 
 from __future__ import annotations
 
+from collections.abc import Callable
+from typing import Any
+
 from src.agents.finsight import AGENTS, OrchestratorAgent
 from src.lambdas._base import run_stage
 
-DISPATCH = {
+DISPATCH: dict[str, Callable[[dict[str, Any]], tuple[Any, ...]]] = {
     "filings": lambda d: (d.get("ticker", ""), d.get("excerpt") or d["request"]),
     "quant": lambda d: (d.get("figures") or {}, d.get("context") or d["request"]),
     "risk": lambda d: (d.get("ticker", ""), d.get("excerpt") or d["request"]),
@@ -22,7 +25,7 @@ DISPATCH = {
 }
 
 
-def _route_and_run(data: dict) -> dict:
+def _route_and_run(data: dict[str, Any]) -> dict[str, Any]:
     decision = OrchestratorAgent().run(data["request"])
     name = decision["agent"]
     return {
@@ -32,5 +35,5 @@ def _route_and_run(data: dict) -> dict:
     }
 
 
-def handler(event: dict, context: object) -> dict:
+def handler(event: dict[str, Any], context: object) -> dict[str, Any]:
     return run_stage(event, required=["request"], fn=_route_and_run)
